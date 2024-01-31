@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "c12880d7-c8ab-4721-be0d-49205d54abdc",
+		"name": "datadriven",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32208582"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "USERPOSTDD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jbody = pm.response.json();\r",
+									"var tbody = pm.response.text();\r",
+									"\r",
+									"pm.test(\"Validate user creation respose as 201\", function(){\r",
+									"pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate user creation respose as 201\", function(){\r",
+									"pm.response.to.have.status(\"Created\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Validate user name is:\", function(){\r",
+									"      var name = jbody.name;\r",
+									"   pm.expect(name).to.include(data.Fname);\r",
+									"   console.log(name);\r",
+									"   console.log(jbody);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate user job is:\", function(){   \r",
+									"   var job = jbody.job;\r",
+									"   pm.expect(job).to.equal(data.JT);\r",
+									"   //console.log(job);\r",
+									"   })\r",
+									"\r",
+									" \r",
+									"pm.test(\"Response contains ID as key\", function () {\r",
+									"    pm.expect(tbody).to.include(\"id\");\r",
+									"    //console.log(tbody);\r",
+									"});\r",
+									"pm.test(\"ID is not empty\", function () {\r",
+									"    var id = jbody.id;\r",
+									"    var length= id.length;\r",
+									"    pm.expect(length).to.greaterThan(0);\r",
+									"   // console.log(length);\r",
+									"   // console.log(tbody);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"employee details are\", function () {\r",
+									"    var nlength = jbody.name;\r",
+									"    var namelength= nlength.length;\r",
+									"    pm.expect(namelength).to.greaterThan(0);\r",
+									"   // console.log(namelength);\r",
+									"    //console.log(tbody);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(data.Fname);\r",
+									"console.log(data.JT);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{Fname}}\",\r\n    \"job\": \"{{JT}}\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://reqres.in/api/users",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GETNEW",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is correct\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"/*pm.test(\"Body is correct\", function () {\r",
+									"    pm.resposnse.text();\r",
+									"    pm.response.to.have.body(\"edward\");\r",
+									"});*/\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://reqres.in/api/users/2",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
